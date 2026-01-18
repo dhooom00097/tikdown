@@ -128,6 +128,11 @@ export default function Home() {
         </AnimatePresence>
 
       </div>
+      <footer className="absolute bottom-4 text-white/50 text-sm font-medium">
+        <p dir="rtl">
+          صنع بكل <span className="text-red-500">❤️</span> بواسطة عبدالرحمن
+        </p>
+      </footer>
     </main>
   );
 }
