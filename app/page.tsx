@@ -20,7 +20,8 @@ export default function Home() {
     setData(null);
 
     try {
-      const res = await fetch('/api/download', {
+      // Add timestamp to prevent browser caching of the POST request
+      const res = await fetch(`/api/download?t=${Date.now()}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ url }),
