@@ -31,7 +31,13 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: data.msg || 'Failed to fetch video' }, { status: 400 });
     }
 
-    return NextResponse.json(data.data);
+    return NextResponse.json(data.data, {
+      headers: {
+        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0',
+      }
+    });
   } catch (error) {
     console.error('Error fetching video:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
