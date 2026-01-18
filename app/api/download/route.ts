@@ -8,7 +8,9 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'URL is required' }, { status: 400 });
     }
 
-    const response = await fetch(`https://www.tikwm.com/api/?url=${encodeURIComponent(url)}`);
+    const response = await fetch(`https://www.tikwm.com/api/?url=${encodeURIComponent(url)}`, {
+      cache: 'no-store'
+    });
     const data = await response.json();
 
     if (data.code !== 0) {
