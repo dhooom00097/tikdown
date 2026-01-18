@@ -22,23 +22,17 @@ interface VideoCardProps {
 }
 
 export function VideoCard({ data }: VideoCardProps) {
-    const handleDownload = async (url: string, filename: string) => {
-        try {
-            const response = await fetch(url);
-            const blob = await response.blob();
-            const blobUrl = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = blobUrl;
-            a.download = filename;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            window.URL.revokeObjectURL(blobUrl);
-        } catch (error) {
-            console.error('Download failed:', error);
-            // Fallback: open in new tab
-            window.open(url, '_blank');
-        }
+    const handleDownload = (url: string, filename: string) => {
+        // Use the proxy route to force download with headers
+        const downloadUrl = `/api/proxy-download?url=${encodeURIComponent(url)}&filename=${encodeURIComponent(filename)}`;
+
+        // Create a temporary link and click it
+        const a = document.createElement('a');
+        a.href = downloadUrl;
+        a.download = filename; // Backup for browsers that respect this anchor attribute
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
     };
 
     return (
